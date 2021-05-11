@@ -4,6 +4,7 @@ const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin'); // 引入CleanWebpackPlugin插件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(common, { // 将webpack.common.js合并到当前文件
     mode:'production',
@@ -15,5 +16,8 @@ module.exports = merge(common, { // 将webpack.common.js合并到当前文件
             template: "index.html",
             filename: "./index/index.output.html"
         }),
+        new MiniCssExtractPlugin({
+            filename: './css/[name].css'
+        })
     ]
 })

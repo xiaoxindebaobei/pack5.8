@@ -1,5 +1,6 @@
 const path=require('path');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports= {
     entry: {
         main:path.join(__dirname,'../src/main.js'),
@@ -22,7 +23,14 @@ module.exports= {
             {
                 //用正则表达式去匹配要用该Loader转换的css文件
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                use: ['style-loader','css-loader','postcss-loader'],
+            },
+            {
+                //处理scss文件
+                test: /\.(scss|sass)$/,
+                use: [{
+                    loader: MiniCssExtractPlugin.loader,
+                },'css-loader','postcss-loader','sass-loader'],
             },
             {
                 test: /\.js$/,
