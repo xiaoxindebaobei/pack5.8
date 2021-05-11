@@ -39,6 +39,24 @@ module.exports= {
                 },
                 exclude: /node_modules/   // 排除匹配node_modules模块
             },
+            {
+                test: /\.(htm|html)$/i,
+                loader: 'html-withimg-loader',
+            },
+            {
+                test: /\.(png|jpg|svg|gif)$/,  // 正则匹配图片格式名
+                use: [
+                    {
+                        loader: 'file-loader',  // 使用file-loader
+                        options: {
+                            outputPath: 'images',  // 设置打包后图片存放的文件夹名称
+                            name:'[name].[hash:5].[ext]',
+                            esModule:false,
+                            publicPath:"./images"
+                        }
+                    },
+                ]
+            },
         ]
     },
 }
