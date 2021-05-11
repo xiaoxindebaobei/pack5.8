@@ -9,6 +9,7 @@ const path = require('path');
 const PurifyCssWebpack = require('purifycss-webpack'); // 引入PurifyCssWebpack插件
 const glob = require('glob');  // 引入glob模块,用于扫描全部html文件中所引用的css
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, { // 将webpack.common.js合并到当前文件
     mode:'production',
@@ -34,6 +35,12 @@ module.exports = merge(common, { // 将webpack.common.js合并到当前文件
             // In case you imported plugins individually, you must also require them here:
             Util: "exports-loader?Util!bootstrap/js/dist/util",
             Dropdown: "exports-loader?Dropdown!bootstrap/js/dist/dropdown",
-        })
+        }),
+        new CopyWebpackPlugin(
+            [{
+                from: __dirname+'../static',
+                to: __dirname+'../dist/static',
+            }]
+        ),
     ]
 })
